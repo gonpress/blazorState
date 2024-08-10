@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fluentBlazor", "fluentBlazor\fluentBlazor\fluentBlazor.csproj", "{AA600948-82A3-4813-BF53-CE8B976B0A58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fluentBlazor.Client", "fluentBlazor\fluentBlazor.Client\fluentBlazor.Client.csproj", "{8F24C630-00E1-4C7D-94BC-FBD48C2587E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA600948-82A3-4813-BF53-CE8B976B0A58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA600948-82A3-4813-BF53-CE8B976B0A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA600948-82A3-4813-BF53-CE8B976B0A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA600948-82A3-4813-BF53-CE8B976B0A58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F24C630-00E1-4C7D-94BC-FBD48C2587E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F24C630-00E1-4C7D-94BC-FBD48C2587E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F24C630-00E1-4C7D-94BC-FBD48C2587E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F24C630-00E1-4C7D-94BC-FBD48C2587E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {583B0108-D7C0-4D65-9CC8-AB424EDDF9B6}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,94 @@
+﻿@page "/weather"
+@using fluentBlazor.Models
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+@inject WeatherForecastState weatherForecastState
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
+    <FluentDataGrid Id="weathergrid" Items="@forecasts" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="WeatherForecast">
+        <PropertyColumn Title="Date" Property="@(c => c!.Date)" Align="Align.Start" />
+        <PropertyColumn Title="Name" Property="@(c => c!.Name)" Align="Align.Start" />
+        <PropertyColumn Title="Temp. (C)" Property="@(c => c!.TemperatureC)" Align="Align.Center"/>
+        <PropertyColumn Title="Temp. (F)" Property="@(c => c!.TemperatureF)" Align="Align.Center"/>
+        <PropertyColumn Title="Summary" Property="@(c => c!.Summary)" Align="Align.End" />
+        <TemplateColumn Title="Actions" Align="@Align.End">
+            <FluentButton aria-label="Edit item" IconEnd="@(new Icons.Regular.Size16.Edit())" OnClick="@(() => EditData(context))" />
+            <FluentButton aria-label="Delete item" IconEnd="@(new Icons.Regular.Size16.Delete())" OnClick="@(() => Console.WriteLine("Delete clicked"))" />
+        </TemplateColumn>
+    </FluentDataGrid>
+    <CardView />
+    <div>
+        <EditForm Model="@weatherForecastState.State" OnValidSubmit="@HandleValidSubmit" FormName="formWeatherForecast">
+            <DataAnnotationsValidator />
+            <FluentValidationSummary />
+
+
+            <FluentStack Orientation="Orientation.Vertical">
+                <div>
+                    <FluentNumberField Name="temperatureC" @bind-Value="weatherForecastState.State.TemperatureC" Label="TemperatureC" Required />
+                    <FluentValidationMessage For="@(() => weatherForecastState.State.TemperatureC)" />
+                </div>
+                <div>
+                    <FluentNumberField Name="Identifier" @bind-Value="weatherForecastState.State.Id" Label="Identifier" Required />
+                    <FluentValidationMessage For="@(() => weatherForecastState.State.Id)" />
+                </div>
+                <div>
+                    <FluentTextField Name="Summary" @bind-Value="weatherForecastState.State.Summary" Label="Summary" />
+                    <FluentValidationMessage For="@(() => weatherForecastState.State.Summary)" />
+                </div>
+                <div>
+                    <FluentTextArea Name="Name" Rows=5 Cols=60 @bind-Value="weatherForecastState.State.Name" Label="Name" Required />
+                    <FluentValidationMessage For="@(() => weatherForecastState.State.Name)" />
+                </div>
+                <div>
+                    <FluentTextArea Name="Description" Rows=5 Cols=60 @bind-Value="weatherForecastState.State.Description" Label="Description (optional)" Required />
+                    <FluentValidationMessage For="@(() => weatherForecastState.State.Description)" />
+                </div>
+                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Submit</FluentButton>
+            </FluentStack>
+        </EditForm>
+    </div>
+}
+
+@code {
+    private IQueryable<WeatherForecast>? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(500);
+
+        var startDate = DateTime.Now;
+        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Name = Random.Shared.Next(1, 100).ToString(),
+            Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = summaries[Random.Shared.Next(summaries.Length)]
+        }).AsQueryable();
+    }
+
+    public void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+
+    public void EditData(WeatherForecast w)
+    {
+        Console.WriteLine($"EditData 1 >>>>>>>>> {weatherForecastState.State.Summary}");
+        weatherForecastState.State = w;
+    }
+}

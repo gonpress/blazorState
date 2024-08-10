@@ -1,0 +1,34 @@
+﻿@using fluentBlazor.Models
+@inject WeatherForecastState weawtherForecastState
+<h3>CardView</h3>
+@if (weawtherForecastState.State is not null)
+{
+<FluentCard Width="400px" Height="400px">
+    <FluentStack Orientation="Orientation.Vertical">
+        <div>
+                id: @weawtherForecastState.State.Id
+        </div>
+
+        <div>
+                name: @weawtherForecastState.State.Name
+        </div>
+
+        <div>
+                temperatureC : @weawtherForecastState.State.TemperatureC
+        </div>
+        <div>
+                date : @weawtherForecastState.State.Date
+        </div>
+        <div>
+                summary : @weawtherForecastState.State.Summary
+        </div>
+    </FluentStack>
+</FluentCard>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        weawtherForecastState.OnChange += StateHasChanged;
+    }
+}
